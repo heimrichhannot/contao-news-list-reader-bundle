@@ -1,0 +1,31 @@
+{
+  "name": "heimrichhannot/contao-news-list-reader-bundle",
+  "type": "contao-bundle",
+  "description": "This bundle enhances the support of list and reader bundle for the contao news entity.",
+  "license": "LGPL-3.0-or-later",
+  "require": {
+    "php": "^7.1",
+    "contao/core-bundle": "^4.4"
+  },
+  "suggest": {
+    "heimrichhannot/contao-list-bundle": "This bundle offers a generic list module to use with arbitrary contao entities containing standard list handling like pagination, sorting, and filtering.",
+    "heimrichhannot/contao-reader-bundle": "This bundle offers a generic reader module to use with arbitrary contao entities containing standard reader specific functionality like field output, images and auto_item handling."
+  },
+  "autoload": {
+    "psr-4": {
+      "HeimrichHannot\\NewsListReaderBundle\\": "src/"
+    },
+    "classmap": [
+      "src/"
+    ],
+    "exclude-from-classmap": [
+      "src/Resources/contao/config/",
+      "src/Resources/contao/dca/",
+      "src/Resources/contao/languages/",
+      "src/Resources/contao/templates/"
+    ]
+  },
+  "extra": {
+    "contao-manager-plugin": "HeimrichHannot\\NewsListReaderBundle\\ContaoManager\\Plugin",
+  }
+}
