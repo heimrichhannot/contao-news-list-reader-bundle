@@ -26,6 +26,6 @@
     ]
   },
   "extra": {
-    "contao-manager-plugin": "HeimrichHannot\\NewsListReaderBundle\\ContaoManager\\Plugin",
+    "contao-manager-plugin": "HeimrichHannot\\NewsListReaderBundle\\ContaoManager\\Plugin"
   }
 }
