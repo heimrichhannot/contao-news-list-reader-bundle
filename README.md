@@ -1,5 +1,8 @@
 # Contao News List Reader Bundle
 
+[![](https://img.shields.io/packagist/v/heimrichhannot/contao-news-list-reader-bundle.svg)](https://packagist.org/packages/heimrichhannot/contao-news-list-reader-bundle)
+[![](https://img.shields.io/packagist/dt/heimrichhannot/contao-news-list-reader-bundle.svg)](https://packagist.org/packages/heimrichhannot/contao-news-list-reader-bundle)
+
 This bundle contains Item classes for [list](https://github.com/heimrichhannot/contao-list-bundle) and [reader bundle](https://github.com/heimrichhannot/contao-reader-bundle) for better support for the contao news entity.
 
 ## Features
