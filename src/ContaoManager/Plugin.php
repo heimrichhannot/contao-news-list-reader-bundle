@@ -22,6 +22,7 @@ use Contao\ManagerPlugin\Config\ExtensionPluginInterface;
 use Contao\NewsBundle\ContaoNewsBundle;
 use HeimrichHannot\ListBundle\HeimrichHannotContaoListBundle;
 use HeimrichHannot\NewsListReaderBundle\ContaoNewsListReaderBundle;
+use HeimrichHannot\ReaderBundle\HeimrichHannotContaoReaderBundle;
 use HeimrichHannot\UtilsBundle\Container\ContainerUtil;
 
 class Plugin implements BundlePluginInterface, ExtensionPluginInterface
@@ -34,12 +35,20 @@ class Plugin implements BundlePluginInterface, ExtensionPluginInterface
      */
     public function getBundles(ParserInterface $parser)
     {
+        $loadAfter = [
+            ContaoCoreBundle::class,
+            ContaoNewsBundle::class,
+        ];
+
+        if (class_exists('HeimrichHannot\ListBundle\HeimrichHannotContaoListBundle')) {
+            $loadAfter[] = HeimrichHannotContaoListBundle::class;
+        }
+        if (class_exists('HeimrichHannot\ReaderBundle\HeimrichHannotContaoReaderBundle')) {
+            $loadAfter[] = HeimrichHannotContaoReaderBundle::class;
+        }
+
         return [
-            BundleConfig::create(ContaoNewsListReaderBundle::class)->setLoadAfter([
-                ContaoCoreBundle::class,
-                ContaoNewsBundle::class,
-                HeimrichHannotContaoListBundle::class,
-            ])
+            BundleConfig::create(ContaoNewsListReaderBundle::class)->setLoadAfter($loadAfter)
         ];
     }
 
