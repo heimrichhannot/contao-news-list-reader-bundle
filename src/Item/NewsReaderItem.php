@@ -70,7 +70,7 @@ class NewsReaderItem extends DefaultItem
         $container->get('huh.head.tag.og_locale')->setContent($container->get('request_stack')->getCurrentRequest()->getLocale());
         $container->get('huh.head.tag.og_type')->setContent('article');
         $container->get('huh.head.tag.og_title')->setContent(StringUtil::stripInsertTags($article['headline']));
-        $container->get('huh.head.tag.og_url')->setContent('{{news_category_url::'.$article['id'].'}}');
+        $container->get('huh.head.tag.og_url')->setContent(Environment::get('uri'));
         $container->get('huh.head.tag.og_description')->setContent(str_replace("\n", ' ', strip_tags(Controller::replaceInsertTags($article['teaser']))));
 
         if ($article['addImage'] && $image) {
