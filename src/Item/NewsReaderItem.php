@@ -61,7 +61,7 @@ class NewsReaderItem extends DefaultItem
         $image = $this->getFormattedValue('singleSRC');
 
         if (Validator::isBinaryUuid($image)) {
-            $image = System::getContainer()->get('huh.utils.file')->getPathFromUuid($image);
+            $image = Environment::get('url').'/'.System::getContainer()->get('huh.utils.file')->getPathFromUuid($image);
         }
 
         $container->get('huh.head.tag.meta_robots')->setContent($article['robots'] ?: 'index,follow');
@@ -74,7 +74,7 @@ class NewsReaderItem extends DefaultItem
         $container->get('huh.head.tag.og_description')->setContent(str_replace("\n", ' ', strip_tags(Controller::replaceInsertTags($article['teaser']))));
 
         if ($article['addImage'] && $image) {
-            $container->get('huh.head.tag.og_image')->setContent(Environment::get('url').'/'.$image);
+            $container->get('huh.head.tag.og_image')->setContent($image);
         } else {
             $container->get('huh.head.tag.og_image')->setContent('');
         }
@@ -128,7 +128,7 @@ class NewsReaderItem extends DefaultItem
             }
 
             if ($article['addImage'] && $image) {
-                $container->get('huh.head.tag.twitter_image')->setContent(Environment::get('url').'/'.$image);
+                $container->get('huh.head.tag.twitter_image')->setContent($image);
 
                 if ($article['alt']) {
                     $container->get('huh.head.tag.twitter_image_alt')->setContent($article['alt']);
