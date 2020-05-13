@@ -347,7 +347,7 @@ trait NewsItemTrait
     {
         global $objPage;
 
-        return Date::parse($objPage->datimFormat, $this->date);
+        return Date::parse($objPage->dateFormat, $this->getRawValue('date'));
     }
 
     /**
