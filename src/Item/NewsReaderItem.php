@@ -64,7 +64,7 @@ class NewsReaderItem extends DefaultItem
             $image = Environment::get('url').'/'.System::getContainer()->get('huh.utils.file')->getPathFromUuid($image);
         }
 
-        $container->get('huh.head.tag.meta_robots')->setContent($article['robots'] ?: 'index,follow');
+        $container->get('huh.head.tag.meta_robots')->setContent($article['robots'] ?: ($objPage->robots ?: 'index,follow'));
         $container->get('huh.head.tag.meta_date')->setContent(Date::parse('c', $article['date']));
         $container->get('huh.head.tag.og_site_name')->setContent($objPage->rootPageTitle);
         $container->get('huh.head.tag.og_locale')->setContent($container->get('request_stack')->getCurrentRequest()->getLocale());
