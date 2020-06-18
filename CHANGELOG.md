@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.1.1] - 2020-06-18
+- fixed canonical link generation
+
 ## [1.1.0] - 2020-06-18
 - added `getSearchablePages` hook taking into account a jumpTo defined in a primary category in
   heimrichhannot/contao-categories-bundle and codefog/contao-news_categories (-> news_plus legacy)

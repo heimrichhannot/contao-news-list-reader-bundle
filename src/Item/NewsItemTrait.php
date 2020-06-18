@@ -27,13 +27,6 @@ use Psr\Log\LogLevel;
 trait NewsItemTrait
 {
     /**
-     * URL cache array.
-     *
-     * @var array
-     */
-    private static $urlCache = [];
-
-    /**
      * Compile css class.
      */
     public function getCssClass(): string
@@ -117,7 +110,7 @@ trait NewsItemTrait
     /**
      * {@inheritdoc}
      */
-    public function getDetailsUrl(bool $external = true): string
+    public function getDetailsUrl(bool $external = true, bool $isCanonical = false): string
     {
         switch ($this->source) {
             // Link to an external page
@@ -131,7 +124,7 @@ trait NewsItemTrait
                 return $this->getArticleUrl();
         }
 
-        return $this->getDefaultUrl() ?: '';
+        return $this->getDefaultUrl($isCanonical) ?: '';
     }
 
     /**
@@ -191,9 +184,9 @@ trait NewsItemTrait
     /**
      * Get the default news url source = 'default'.
      */
-    public function getDefaultUrl(): ?string
+    public function getDefaultUrl(bool $isCanonical = false): ?string
     {
-        if ($this->getManager() instanceof ListManagerInterface && $this->getManager()->getListConfig()->addDetails) {
+        if (!$isCanonical && $this->getManager() instanceof ListManagerInterface && $this->getManager()->getListConfig()->addDetails) {
             $url = $this->_detailsUrl;
         } else {
             // news is relocated -> return relocation url
