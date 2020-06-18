@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (c) 2019 Heimrich & Hannot GmbH
+ * Copyright (c) 2020 Heimrich & Hannot GmbH
  *
  * @license LGPL-3.0-or-later
  */
@@ -35,8 +35,6 @@ trait NewsItemTrait
 
     /**
      * Compile css class.
-     *
-     * @return string
      */
     public function getCssClass(): string
     {
@@ -56,8 +54,6 @@ trait NewsItemTrait
 
     /**
      * Compile the headline link.
-     *
-     * @return string
      */
     public function getLinkHeadline(): string
     {
@@ -72,8 +68,6 @@ trait NewsItemTrait
 
     /**
      * Compile the more link.
-     *
-     * @return string
      */
     public function getMore(): string
     {
@@ -107,8 +101,6 @@ trait NewsItemTrait
 
     /**
      * Get details url and add archive.
-     *
-     * @return null|string
      */
     public function getDetailsUrlWithArchive(): ?string
     {
@@ -127,13 +119,6 @@ trait NewsItemTrait
      */
     public function getDetailsUrl(bool $external = true): string
     {
-        $cacheKey = 'id_'.$this->id;
-
-        // Load the URL from cache
-        if (isset(self::$urlCache[$cacheKey])) {
-            return self::$urlCache[$cacheKey];
-        }
-
         switch ($this->source) {
             // Link to an external page
             case 'external':
@@ -146,45 +131,29 @@ trait NewsItemTrait
                 return $this->getArticleUrl();
         }
 
-        return $this->getDefaultUrl();
+        return $this->getDefaultUrl() ?: '';
     }
 
     /**
      * Get the external news url source = 'external'.
-     *
-     * @return null|string
      */
     public function getExternalUrl(): ?string
     {
-        $cacheKey = 'id_'.$this->id;
-
-        // Load the URL from cache
-        if (isset(self::$urlCache[$cacheKey])) {
-            return self::$urlCache[$cacheKey];
-        }
-
         if ('mailto:' == substr($this->url, 0, 7)) {
-            self::$urlCache[$cacheKey] = StringUtil::encodeEmail($this->url);
+            $url = StringUtil::encodeEmail($this->url);
         } else {
-            self::$urlCache[$cacheKey] = ampersand($this->url);
+            $url = ampersand($this->url);
         }
 
-        return self::$urlCache[$cacheKey] ?? null;
+        return $url ?: null;
     }
 
     /**
      * Get the internal news url source = 'internal'.
-     *
-     * @return null|string
      */
     public function getInternalUrl(): ?string
     {
-        $cacheKey = 'id_'.$this->id;
-
-        // Load the URL from cache
-        if (isset(self::$urlCache[$cacheKey])) {
-            return self::$urlCache[$cacheKey];
-        }
+        $url = '';
 
         /**
          * @var PageModel
@@ -192,25 +161,18 @@ trait NewsItemTrait
         $pageModel = $this->getManager()->getFramework()->getAdapter(PageModel::class);
 
         if (null !== ($target = $pageModel->findByPk($this->jumpTo))) {
-            self::$urlCache[$cacheKey] = ampersand($target->getFrontendUrl());
+            $url = ampersand($target->getFrontendUrl());
         }
 
-        return self::$urlCache[$cacheKey] ?? null;
+        return $url ?: null;
     }
 
     /**
      * Get the article news url source = 'article'.
-     *
-     * @return null|string
      */
     public function getArticleUrl(): ?string
     {
-        $cacheKey = 'id_'.$this->id;
-
-        // Load the URL from cache
-        if (isset(self::$urlCache[$cacheKey])) {
-            return self::$urlCache[$cacheKey];
-        }
+        $url = '';
 
         /**
          * @var NewsArchiveModel
@@ -220,36 +182,28 @@ trait NewsItemTrait
         $articleModel = $this->getManager()->getFramework()->getAdapter(ArticleModel::class);
 
         if (null !== ($article = $articleModel->findByPk($this->articleId, ['eager' => true])) && null !== ($parentPage = $pageModel->findByPk($article->pid))) {
-            self::$urlCache[$cacheKey] = ampersand($parentPage->getFrontendUrl('/articles/'.($article->alias ?: $article->id)));
+            $url = ampersand($parentPage->getFrontendUrl('/articles/'.($article->alias ?: $article->id)));
         }
 
-        return self::$urlCache[$cacheKey] ?? null;
+        return $url ?: null;
     }
 
     /**
      * Get the default news url source = 'default'.
-     *
-     * @return null|string
      */
     public function getDefaultUrl(): ?string
     {
-        $cacheKey = 'id_'.$this->id;
-
-        // Load the URL from cache
-        if (isset(self::$urlCache[$cacheKey])) {
-            return self::$urlCache[$cacheKey];
-        }
-
         if ($this->getManager() instanceof ListManagerInterface && $this->getManager()->getListConfig()->addDetails) {
-            self::$urlCache[$cacheKey] = parent::getDetailsUrl();
+            $url = $this->_detailsUrl;
         } else {
             // news is relocated -> return relocation url
             if ('none' !== $this->relocate && '' !== ($relocateUrl = ampersand(Controller::replaceInsertTags($this->relocateUrl), true))) {
-                self::$urlCache[$cacheKey] = $relocateUrl;
+                $url = $relocateUrl;
 
-                return self::$urlCache[$cacheKey];
+                return $url;
             }
 
+            // news archive
             /**
              * @var NewsArchiveModel
              * @var PageModel        $pageModel
@@ -264,19 +218,32 @@ trait NewsItemTrait
             $page = $pageModel->findByPk($archive->jumpTo);
 
             if (null === $page) {
-                self::$urlCache[$cacheKey] = ampersand(System::getContainer()->get('request_stack')->getCurrentRequest()->getRequestUri(), true);
+                $url = ampersand(System::getContainer()->get('request_stack')->getCurrentRequest()->getRequestUri(), true);
             } else {
-                self::$urlCache[$cacheKey] = ampersand($page->getFrontendUrl((Config::get('useAutoItem') ? '/' : '/items/').($this->alias ?: $this->id)));
+                $url = ampersand($page->getFrontendUrl((Config::get('useAutoItem') ? '/' : '/items/').($this->alias ?: $this->id)));
+            }
+
+            // primary category (if no page is selected in list config)
+
+            // guess the primary category (TODO: make configurable)
+            $primary = $this->getRawValue('huhCategories_primary') ?: $this->getRawValue('categories_primary');
+
+            if ($primary) {
+                $value = \System::getContainer()->get(\HeimrichHannot\CategoriesBundle\Manager\CategoryManager::class)->getOverridablePropertyWithoutContext(
+                    'jumpTo', $primary
+                );
+
+                if (null !== ($page = $pageModel->findByPk($value))) {
+                    $url = ampersand($page->getFrontendUrl((Config::get('useAutoItem') ? '/' : '/items/').($this->alias ?: $this->id)));
+                }
             }
         }
 
-        return self::$urlCache[$cacheKey] ?? null;
+        return $url ?: null;
     }
 
     /**
      * Get news date DateTime.
-     *
-     * @return string
      */
     public function getDatetime(): string
     {
@@ -285,8 +252,6 @@ trait NewsItemTrait
 
     /**
      * Get news date timestamp.
-     *
-     * @return string
      */
     public function getTimestamp(): string
     {
@@ -295,8 +260,6 @@ trait NewsItemTrait
 
     /**
      * Get the author.
-     *
-     * @return null|string
      */
     public function getAuthor(): ?string
     {
@@ -312,8 +275,6 @@ trait NewsItemTrait
 
     /**
      * Compile comment count.
-     *
-     * @return null|string
      */
     public function getCommentCount(): ?string
     {
@@ -324,8 +285,6 @@ trait NewsItemTrait
 
     /**
      * Get number of comments.
-     *
-     * @return int|null
      */
     public function getNumberOfComments(): ?int
     {
@@ -340,8 +299,6 @@ trait NewsItemTrait
 
     /**
      * Get formatted meta date.
-     *
-     * @return string
      */
     public function getDate(): string
     {
@@ -352,8 +309,6 @@ trait NewsItemTrait
 
     /**
      * Get all enclosures.
-     *
-     * @return array|null
      */
     public function getEnclosures(): ?array
     {
@@ -369,8 +324,6 @@ trait NewsItemTrait
 
     /**
      * Compile the news text.
-     *
-     * @return string
      */
     public function getText(): string
     {
@@ -395,8 +348,6 @@ trait NewsItemTrait
 
     /**
      * Check if the news has text.
-     *
-     * @return bool
      */
     public function hasText(): bool
     {
@@ -413,8 +364,6 @@ trait NewsItemTrait
 
     /**
      * Check if the news has teaser text.
-     *
-     * @return bool
      */
     public function hasTeaser(): bool
     {
@@ -423,8 +372,6 @@ trait NewsItemTrait
 
     /**
      * Compile the teaser text.
-     *
-     * @return string
      */
     public function getTeaser(): string
     {
@@ -433,8 +380,6 @@ trait NewsItemTrait
 
     /**
      * Compile the newsHeadline.
-     *
-     * @return string
      */
     public function getNewsHeadline(): string
     {
@@ -443,8 +388,6 @@ trait NewsItemTrait
 
     /**
      * Compile the news SubHeadline.
-     *
-     * @return string
      */
     public function getNewsSubHeadline(): string
     {
@@ -453,8 +396,6 @@ trait NewsItemTrait
 
     /**
      * Check if the news has a subHeadline.
-     *
-     * @return bool
      */
     public function hasSubHeadline(): bool
     {

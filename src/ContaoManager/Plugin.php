@@ -1,16 +1,12 @@
 <?php
-/**
- * Contao Open Source CMS
+
+/*
+ * Copyright (c) 2020 Heimrich & Hannot GmbH
  *
- * Copyright (c) 2019 Heimrich & Hannot GmbH
- *
- * @author  Thomas Körner <t.koerner@heimrich-hannot.de>
- * @license http://www.gnu.org/licences/lgpl-3.0.html LGPL
+ * @license LGPL-3.0-or-later
  */
 
-
 namespace HeimrichHannot\NewsListReaderBundle\ContaoManager;
-
 
 use Contao\CoreBundle\ContaoCoreBundle;
 use Contao\ManagerPlugin\Bundle\BundlePluginInterface;
@@ -27,7 +23,6 @@ use HeimrichHannot\UtilsBundle\Container\ContainerUtil;
 
 class Plugin implements BundlePluginInterface, ExtensionPluginInterface
 {
-
     /**
      * Gets a list of autoload configurations for this bundle.
      *
@@ -43,12 +38,13 @@ class Plugin implements BundlePluginInterface, ExtensionPluginInterface
         if (class_exists('HeimrichHannot\ListBundle\HeimrichHannotContaoListBundle')) {
             $loadAfter[] = HeimrichHannotContaoListBundle::class;
         }
+
         if (class_exists('HeimrichHannot\ReaderBundle\HeimrichHannotContaoReaderBundle')) {
             $loadAfter[] = HeimrichHannotContaoReaderBundle::class;
         }
 
         return [
-            BundleConfig::create(ContaoNewsListReaderBundle::class)->setLoadAfter($loadAfter)
+            BundleConfig::create(ContaoNewsListReaderBundle::class)->setLoadAfter($loadAfter),
         ];
     }
 
