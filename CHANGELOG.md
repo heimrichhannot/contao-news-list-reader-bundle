@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.1.2] - 2020-06-23
+- fixed `SearchListener` (sprintf issue)
+
 ## [1.1.1] - 2020-06-18
 - fixed canonical link generation
 
