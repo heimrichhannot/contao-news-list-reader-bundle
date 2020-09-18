@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.1.3] - 2020-09-18
+- added aria-label to linkHeadline and more
+
 ## [1.1.2] - 2020-06-23
 - fixed `SearchListener` (sprintf issue)
 
