@@ -68,7 +68,7 @@ class SearchListener
                     }
 
                     // Generate the URL
-                    $arrProcessed[$objArchive->jumpTo] = $objParent->getAbsoluteUrl(\Config::get('useAutoItem') ? '/%s' : '/items/%s');
+                    $arrProcessed[$objArchive->jumpTo] = $objParent->getAbsoluteUrl().(\Config::get('useAutoItem') ? '/%s' : '/items/%s');
                 }
 
                 $strUrl = $arrProcessed[$objArchive->jumpTo];

@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.1.5] - 2020-11-06
+- fixed url encode issue in `SearchListener`
+
 ## [1.1.4] - 2020-09-18
 - added aria-label to enclosure link at news_full.html.twig
 

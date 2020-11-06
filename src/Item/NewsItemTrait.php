@@ -52,7 +52,7 @@ trait NewsItemTrait
     {
         // Internal link
         if ('external' !== $this->source) {
-            return sprintf('<a href="%s" title="%s" aria-label="%s" itemprop="url">%s</a>', $this->getDetailsUrl(), StringUtil::specialchars(sprintf($GLOBALS['TL_LANG']['MSC']['readMore'], $this->headline), true), StringUtil::specialchars(sprintf($GLOBALS['TL_LANG']['MSC']['readMore'], $this->headline), true),$this->headline);
+            return sprintf('<a href="%s" title="%s" aria-label="%s" itemprop="url">%s</a>', $this->getDetailsUrl(), StringUtil::specialchars(sprintf($GLOBALS['TL_LANG']['MSC']['readMore'], $this->headline), true), StringUtil::specialchars(sprintf($GLOBALS['TL_LANG']['MSC']['readMore'], $this->headline), true), $this->headline);
         }
 
         // External link
@@ -66,7 +66,7 @@ trait NewsItemTrait
     {
         // Internal link
         if ('external' !== $this->source) {
-            return sprintf('<a href="%s" title="%s" aria-label="%s" itemprop="url">%s</a>', $this->getDetailsUrl(), StringUtil::specialchars(sprintf($GLOBALS['TL_LANG']['MSC']['readMore'], $this->headline), true), StringUtil::specialchars(sprintf($GLOBALS['TL_LANG']['MSC']['readMore'], $this->headline), true),$GLOBALS['TL_LANG']['MSC']['more']);
+            return sprintf('<a href="%s" title="%s" aria-label="%s" itemprop="url">%s</a>', $this->getDetailsUrl(), StringUtil::specialchars(sprintf($GLOBALS['TL_LANG']['MSC']['readMore'], $this->headline), true), StringUtil::specialchars(sprintf($GLOBALS['TL_LANG']['MSC']['readMore'], $this->headline), true), $GLOBALS['TL_LANG']['MSC']['more']);
         }
 
         // External link
