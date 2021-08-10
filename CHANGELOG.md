@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.1.6] - 2021-08-10
+- Changed: `NewsItemTrait::getDetailsUrl()` return type is now optionally a string
+
 ## [1.1.5] - 2020-11-06
 - fixed url encode issue in `SearchListener`
 

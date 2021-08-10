@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (c) 2020 Heimrich & Hannot GmbH
+ * Copyright (c) 2021 Heimrich & Hannot GmbH
  *
  * @license LGPL-3.0-or-later
  */
@@ -110,7 +110,7 @@ trait NewsItemTrait
     /**
      * {@inheritdoc}
      */
-    public function getDetailsUrl(bool $external = true, bool $isCanonical = false): string
+    public function getDetailsUrl(bool $external = true, bool $isCanonical = false): ?string
     {
         switch ($this->source) {
             // Link to an external page
