@@ -1,0 +1,22 @@
+/composer.lock
+/vendor
+/node_modules
+/build
+
+# OS
+.DS_Store
+Thumbs.db
+.sass-cache
+.sass_cache
+*.orig
+
+# IDEs
+.build/
+.buildpath
+.idea/
+nbproject/
+.project
+.settings/
+.vscode
+.history
+*.code-workspace

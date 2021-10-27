@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.2.0] - 2021-10-27
+- Added: php8 support
+
 ## [1.1.6] - 2021-08-10
 - Changed: `NewsItemTrait::getDetailsUrl()` return type is now optionally a string
 

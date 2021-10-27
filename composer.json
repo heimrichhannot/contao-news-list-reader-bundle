@@ -4,7 +4,7 @@
   "description": "This bundle enhances the support of list and reader bundle for the contao news entity.",
   "license": "LGPL-3.0-or-later",
   "require": {
-    "php": "^7.1",
+    "php": "^7.1|^8.0",
     "contao/core-bundle": "^4.4"
   },
   "suggest": {
