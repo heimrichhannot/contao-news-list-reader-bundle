@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [Unreleased] - 2022-05-31
+- Added: license file
+
 ## [1.2.1] - 2022-02-14
 
 - Fixed: array index issues in php 8+
