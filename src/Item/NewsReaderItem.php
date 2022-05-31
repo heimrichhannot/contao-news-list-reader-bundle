@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (c) 2020 Heimrich & Hannot GmbH
+ * Copyright (c) 2022 Heimrich & Hannot GmbH
  *
  * @license LGPL-3.0-or-later
  */
@@ -137,7 +137,7 @@ class NewsReaderItem extends DefaultItem
                 $container->get('huh.head.tag.twitter_image')->setContent('');
             }
 
-            if ($article['addYoutube']) {
+            if ($article['addYoutube'] ?? false) {
                 $container->get('huh.head.tag.twitter_player')->setContent('https://www.youtube.com/embed/'.$article['youtube']);
                 $container->get('huh.head.tag.twitter_player_width')->setContent(480);
                 $container->get('huh.head.tag.twitter_player_height')->setContent(300);

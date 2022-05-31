@@ -1,8 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [Unreleased] - 2022-05-31
+## [1.2.2] - 2022-05-31
 - Added: license file
+- Fixed: warning in php 8
 
 ## [1.2.1] - 2022-02-14
 
