@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.2.4] - 2022-09-28
+- Fixed: do not start a session in list view
+
 ## [1.2.3] - 2022-09-28
 - Fixed: compatiblity with reader bundle
 

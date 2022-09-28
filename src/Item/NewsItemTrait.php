@@ -443,7 +443,11 @@ trait NewsItemTrait
             $pageId = $objPage->id;
         }
 
-        $pages = System::getContainer()->get('session')->get(static::SESSION_SEEN_NEWS);
+        $session = System::getContainer()->get('session');
+
+        if (!$session->isStarted() || !($pages = $session->get(static::SESSION_SEEN_NEWS))) {
+            return null;
+        }
 
         if (!\is_array($pages) || !isset($pages[$pageId])) {
             return null;
