@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.2.3] - 2022-09-28
+- Fixed: compatiblity with reader bundle
+
 ## [1.2.2] - 2022-05-31
 - Added: license file
 - Fixed: warning in php 8

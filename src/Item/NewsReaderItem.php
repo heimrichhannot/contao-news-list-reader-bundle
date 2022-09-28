@@ -25,7 +25,6 @@ class NewsReaderItem extends DefaultItem
     public function parse(): string
     {
         $this->addPageMeta();
-        $this->getManager()->setMetaDescription();
         $this->addSeen();
 
         return parent::parse();
