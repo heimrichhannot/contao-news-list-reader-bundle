@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.3.0] - 2023-02-23
+- Changed: refactored head bundle integration to event listener and head bundle version 1.11.0
+- Changed: raised minimum contao and php version
+- Fixed: missing head bundle dependency
+
 ## [1.2.4] - 2022-09-28
 - Fixed: do not start a session in list view
 

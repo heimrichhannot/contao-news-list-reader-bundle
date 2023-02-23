@@ -1,0 +1,5 @@
+services:
+  HeimrichHannot\NewsListReaderBundle\:
+    resource: '../../{EventListener}/*'
+    autowire: true
+    autoconfigure: true

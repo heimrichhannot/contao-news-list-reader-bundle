@@ -4,8 +4,10 @@
   "description": "This bundle enhances the support of list and reader bundle for the contao news entity.",
   "license": "LGPL-3.0-or-later",
   "require": {
-    "php": "^7.1|^8.0",
-    "contao/core-bundle": "^4.4"
+    "php": "^7.4 || ^8.0",
+    "contao/core-bundle": "^4.9",
+    "heimrichhannot/contao-head-bundle": "^1.11",
+    "symfony/event-dispatcher": "^4.4 || ^5.4"
   },
   "suggest": {
     "heimrichhannot/contao-list-bundle": "This bundle offers a generic list module to use with arbitrary contao entities containing standard list handling like pagination, sorting, and filtering.",
