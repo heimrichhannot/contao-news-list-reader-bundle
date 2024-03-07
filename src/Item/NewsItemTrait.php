@@ -328,9 +328,13 @@ trait NewsItemTrait
         $adapter = $this->getManager()->getFramework()->getAdapter(ContentModel::class);
 
         if (null !== ($elements = $adapter->findPublishedByPidAndTable($this->id, $this->getDataContainer()))) {
-            foreach ($elements as $element) {
+
+            // avoid duplicate content
+            $ids = array_unique($elements->fetchEach('id'));
+
+            foreach ($ids as $id) {
                 try {
-                    $strText .= Controller::getContentElement($element->id);
+                    $strText .= Controller::getContentElement($id);
                 } catch (\ErrorException $e) {
                 }
             }

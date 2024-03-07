@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.3.1] - 2024-03-07
+- Fixed: duplicated content on multilingual occasions
+
 ## [1.3.0] - 2023-02-23
 - Changed: refactored head bundle integration to event listener and head bundle version 1.11.0
 - Changed: raised minimum contao and php version
