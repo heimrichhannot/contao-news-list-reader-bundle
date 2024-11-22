@@ -57,10 +57,11 @@ class NewsItemListener
             $strText = '';
             $objElement = ContentModel::findPublishedByPidAndTable($model->id, 'tl_news');
 
-            if ($objElement !== null) {
-                while ($objElement->next()) {
-                    $strText .= Controller::getContentElement($objElement->current());
-                }
+            // avoid duplicate content on multilingual occasions, see 1.3.1
+            $ids = array_unique($objElement->fetchEach('id'));
+
+            foreach ($ids as $id) {
+                $strText .= Controller::getContentElement($id);
             }
 
             return $strText;
