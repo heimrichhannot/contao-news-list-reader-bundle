@@ -316,50 +316,6 @@ trait NewsItemTrait
     }
 
     /**
-     * Compile the news text.
-     */
-    public function getText(): string
-    {
-        $strText = '';
-
-        /**
-         * @var ContentModel
-         */
-        $adapter = $this->getManager()->getFramework()->getAdapter(ContentModel::class);
-
-        if (null !== ($elements = $adapter->findPublishedByPidAndTable($this->id, $this->getDataContainer()))) {
-
-            // avoid duplicate content
-            $ids = array_unique($elements->fetchEach('id'));
-
-            foreach ($ids as $id) {
-                try {
-                    $strText .= Controller::getContentElement($id);
-                } catch (\ErrorException $e) {
-                }
-            }
-        }
-
-        return $strText;
-    }
-
-    /**
-     * Check if the news has text.
-     */
-    public function hasText(): bool
-    {
-        // Display the "read more" button for external/article links
-        if ('default' !== $this->source) {
-            return true;
-        }
-
-        /** @var ContentModel $adapter */
-        $adapter = $this->getManager()->getFramework()->getAdapter(ContentModel::class);
-
-        return $adapter->countPublishedByPidAndTable($this->id, $this->getDataContainer()) > 0;
-    }
-
-    /**
      * Check if the news has teaser text.
      */
     public function hasTeaser(): bool

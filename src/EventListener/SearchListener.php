@@ -10,6 +10,8 @@ namespace HeimrichHannot\NewsListReaderBundle\EventListener;
 
 use Contao\Database;
 use Contao\Model;
+use Contao\NewsModel;
+use Contao\PageModel;
 use Contao\System;
 
 class SearchListener
@@ -43,7 +45,7 @@ class SearchListener
 
                 // Get the URL of the jumpTo page
                 if (!isset($arrProcessed[$objArchive->jumpTo])) {
-                    $objParent = \PageModel::findWithDetails($objArchive->jumpTo);
+                    $objParent = PageModel::findWithDetails($objArchive->jumpTo);
 
                     // The target page does not exist
                     if (null === $objParent) {
@@ -74,7 +76,7 @@ class SearchListener
                 $strUrl = $arrProcessed[$objArchive->jumpTo];
 
                 // Get the items
-                $objArticle = \NewsModel::findPublishedDefaultByPid($objArchive->id);
+                $objArticle = NewsModel::findPublishedDefaultByPid($objArchive->id);
 
                 if (null !== $objArticle) {
                     while ($objArticle->next()) {

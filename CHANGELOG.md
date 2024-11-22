@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.4.0] - 2024-11-22
+- Changed: make text and hasText variables lazy loading (moved adding this variable from trait to event listener, maybe code adjustments are needed)
+- Changed: require contao 4.13
+- Changed: require at least php 8.1
+
 ## [1.3.1] - 2024-03-07
 - Fixed: duplicated content on multilingual occasions
 
