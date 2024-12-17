@@ -57,6 +57,10 @@ class NewsItemListener
             $strText = '';
             $objElement = ContentModel::findPublishedByPidAndTable($model->id, 'tl_news');
 
+            if (null === $objElement) {
+                return '';
+            }
+
             // avoid duplicate content on multilingual occasions, see 1.3.1
             $ids = array_unique($objElement->fetchEach('id'));
 

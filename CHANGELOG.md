@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.4.1] - 2024-12-17
+- Fixed: exception when no content elements
+
 ## [1.4.0] - 2024-11-22
 - Changed: make text and hasText variables lazy loading (moved adding this variable from trait to event listener, maybe code adjustments are needed)
 - Changed: require contao 4.13
