@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.5.0] - 2025-01-31
+- Added: figure object template data
+- Added: news extension to list and reader config with default img size
+- Changed: some internal refactoring
+
 ## [1.4.1] - 2024-12-17
 - Fixed: exception when no content elements
 

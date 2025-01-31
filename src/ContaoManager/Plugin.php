@@ -30,23 +30,15 @@ class Plugin implements BundlePluginInterface, ExtensionPluginInterface, ConfigP
      *
      * @return ConfigInterface[]
      */
-    public function getBundles(ParserInterface $parser)
+    public function getBundles(ParserInterface $parser): array
     {
-        $loadAfter = [
-            ContaoCoreBundle::class,
-            ContaoNewsBundle::class,
-        ];
-
-        if (class_exists('HeimrichHannot\ListBundle\HeimrichHannotContaoListBundle')) {
-            $loadAfter[] = HeimrichHannotContaoListBundle::class;
-        }
-
-        if (class_exists('HeimrichHannot\ReaderBundle\HeimrichHannotContaoReaderBundle')) {
-            $loadAfter[] = HeimrichHannotContaoReaderBundle::class;
-        }
-
         return [
-            BundleConfig::create(ContaoNewsListReaderBundle::class)->setLoadAfter($loadAfter),
+            BundleConfig::create(ContaoNewsListReaderBundle::class)->setLoadAfter([
+                ContaoCoreBundle::class,
+                ContaoNewsBundle::class,
+                HeimrichHannotContaoListBundle::class,
+                HeimrichHannotContaoReaderBundle::class,
+            ]),
         ];
     }
 
@@ -57,7 +49,7 @@ class Plugin implements BundlePluginInterface, ExtensionPluginInterface, ConfigP
      *
      * @return array<string,mixed>
      */
-    public function getExtensionConfig($extensionName, array $extensionConfigs, ContainerBuilder $container)
+    public function getExtensionConfig($extensionName, array $extensionConfigs, ContainerBuilder $container): array
     {
         $extensionConfigs = ContainerUtil::mergeConfigFile('huh_list', $extensionName, $extensionConfigs, __DIR__.'/../Resources/config/config_list.yml');
 
@@ -66,7 +58,7 @@ class Plugin implements BundlePluginInterface, ExtensionPluginInterface, ConfigP
         return $extensionConfigs;
     }
 
-    public function registerContainerConfiguration(LoaderInterface $loader, array $managerConfig)
+    public function registerContainerConfiguration(LoaderInterface $loader, array $managerConfig): void
     {
         $loader->load('@ContaoNewsListReaderBundle/Resources/config/services.yml');
     }
