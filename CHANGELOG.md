@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.5.1] - 2025-02-10
+- Fixed: issues with twig support template
+
 ## [1.5.0] - 2025-01-31
 - Added: figure object template data
 - Added: news extension to list and reader config with default img size

@@ -24,6 +24,7 @@ class NewsBuilder extends ModuleNews
         $hookCache = $GLOBALS['TL_HOOKS']['parseTemplate'];
 
         $GLOBALS['TL_HOOKS']['parseTemplate'][] = [self::class, 'templateInterop'];
+        unset($GLOBALS['TL_HOOKS']['parseTemplate']['huh_twig_support']);
 
         $template = null;
         try {
