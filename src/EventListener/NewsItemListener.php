@@ -38,9 +38,9 @@ class NewsItemListener
         $newsData = (new NewsBuilder())->fetchPreparedNewsData($newsModel);
 
         $templateData = $event->getTemplateData();
-        $templateData['hasText'] = $newsData['hasText'];
-        $templateData['text'] = $newsData['text'];
-        $templateData['figure'] = $newsData['figure'];
+        $templateData['hasText'] = $newsData['hasText'] ?? false;
+        $templateData['text'] = $newsData['text'] ?? null;
+        $templateData['figure'] = $newsData['figure'] ?? null;
         $event->setTemplateData($templateData);
 
     }

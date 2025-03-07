@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.5.2] - 2025-03-07
+- Fixed: warning
+
 ## [1.5.1] - 2025-02-10
 - Fixed: issues with twig support template
 
